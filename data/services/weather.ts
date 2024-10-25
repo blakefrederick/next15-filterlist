@@ -26,7 +26,17 @@ export async function getTasks(filter?: { q?: string; status?: TaskStatus; categ
     })
   );
 
-  return tasks.filter(task => task !== null);
+  const filteredTasks = tasks.filter(task => task !== null);
+
+  if (filter?.q) {
+    const searchTerm = filter.q.toLowerCase();
+    return filteredTasks.filter(task =>
+      task.title.toLowerCase().includes(searchTerm) ||
+      task.description.toLowerCase().includes(searchTerm)
+    );
+  }
+
+  return filteredTasks;
 }
 
 
