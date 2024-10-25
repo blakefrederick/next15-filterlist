@@ -55,6 +55,9 @@ export default function StatusTabs({ taskSummaryPromise }: Props) {
       <NavTab href="/done" header={`DONE (${getTaskCount('done')})`} activeTab={activeTab} tabId="done">
         {mapTasks('done')}
       </NavTab>
+      <NavTab href="/new" header={`NEW DATA (${getTaskCount('new')})`} activeTab={activeTab} tabId="new">
+        {mapTasks('new')}
+      </NavTab>
     </NavTabs>
   );
 }

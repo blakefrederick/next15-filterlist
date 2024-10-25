@@ -146,6 +146,14 @@ const TODOS = [
     status: 'todo',
     title: 'Test the homescreen',
   },
+  {
+    categoryId: 3,
+    createdAt: new Date('2024-10-31T00:00:00Z'),
+    description: 'Testing adding a new status tab for new data',
+    projectId: 'b3876ae0-bdbf-4c04-8230-85d3a6da15e9',
+    status: 'new',
+    title: 'NEW Halloween Candy Data',
+  },
 ];
 
 async function seedTodos() {
