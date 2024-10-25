@@ -9,7 +9,7 @@ import ProjectInfo from '@/components/ProjectInfo';
 import Search, { SearchSkeleton } from '@/components/Search';
 import StatusTabs, { StatusTabsSkeleton } from '@/components/StatusTabs';
 import { getCategoriesMap } from '@/data/services/category';
-import { getTaskSummary } from '@/data/services/task';
+import { getTaskSummary } from '@/data/services/weather';
 import { cn } from '@/utils/cn';
 import type { Metadata } from 'next';
 

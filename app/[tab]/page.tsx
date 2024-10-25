@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import React from 'react';
 import { ActionIcon } from '@/components/ui/icons/ActionIcon';
-import { getTasks } from '@/data/services/task';
+import { getTasks } from '@/data/services/weather';
 import { taskStatusSchema, type TaskStatus } from '@/types/task';
 import { cn } from '@/utils/cn';
 import { getCategoryColor } from '@/utils/getCategoryColor';
@@ -45,15 +45,15 @@ export default async function TabPage({ params, searchParams }: PageProps) {
           </tr>
         </thead>
         <tbody>
-          {data.map(task => {
-            const color = getCategoryColor(task.categoryId);
+          {data.map((task, index) => {
+            const color = getCategoryColor(task.categoryId || index); 
             return (
-              <tr key={task.id}>
+              <tr key={task.id || index}> 
                 <td className="font-medium">{task.title}</td>
                 <td>{task.description}</td>
                 <td>
                   <div className={cn(color, 'flex w-fit justify-center px-3 py-1 text-white dark:text-black')}>
-                    {task.category.name}
+                    {task.category?.name || 'Uncategorized'} 
                   </div>
                 </td>
                 <td>{new Date(task.createdAt).toLocaleDateString()}</td>

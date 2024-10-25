@@ -18,9 +18,10 @@ export default function StatusTabs({ taskSummaryPromise }: Props) {
   const activeTab = useParams().tab as TaskStatus;
 
   const mapTasks = (status: TaskStatus) => {
+    const tasksForStatus = taskSummary[status] || {}; 
     return (
       <div className="flex flex-col gap-2">
-        {Object.entries(taskSummary[status]).map(([id, category]) => {
+        {Object.entries(tasksForStatus).map(([id, category]) => {
           const color = getCategoryColor(Number(id));
           return (
             <div key={id} className="flex items-center gap-2">
@@ -32,9 +33,10 @@ export default function StatusTabs({ taskSummaryPromise }: Props) {
       </div>
     );
   };
-
+  
   const getTaskCount = (status: TaskStatus) => {
-    return Object.values(taskSummary[status]).reduce((acc, category) => {
+    const tasksForStatus = taskSummary[status] || {}; 
+    return Object.values(tasksForStatus).reduce((acc, category) => {
       return acc + category.count;
     }, 0);
   };
