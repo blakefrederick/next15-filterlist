@@ -5,12 +5,12 @@ export async function getTasks(filter: { q?: string; status?: string | null; cat
   const OPENWEATHERMAP_API_KEY = process.env.OPENWEATHERMAP_API_KEY;
 
   const cities = [
-    'New York', 'Los Angeles', 'Chicago', 'London', 'Paris',
-    'Tokyo', 'Sydney', 'Berlin', 'Toronto', 'Dubai'
+    'Vancouver', 'Kamloops', 'Toronto', 'Edmonton'
   ];
 
   const tasks = await Promise.all(
     cities.map(async (city) => {
+      console.log(`Fetching data for ${city}...`);
       const response = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${OPENWEATHERMAP_API_KEY}`,
         {
@@ -18,13 +18,18 @@ export async function getTasks(filter: { q?: string; status?: string | null; cat
           next: { revalidate: 1800 } // Revalidate every 30 minutes
         }
       );
+      console.log(`${city}... ${JSON.stringify(response)}`);
 
       const data = await response.json();
 
       // Get cache status and age
-      const cacheStatus = response.headers.get('x-nextjs-cache') || 'MISS';
+      
+      // This method does not work for external APIs.
+      // const cacheStatus = response.headers.get('x-nextjs-cache') || 'MISS';
+
       const ageHeader = response.headers.get('age');
       const cacheAge = ageHeader ? parseInt(ageHeader, 10) : 0;
+      const cacheStatus = cacheAge > 0 ? 'HIT' : 'MISS';
       const cacheDate = new Date(Date.now() - cacheAge * 1000).toISOString();
       const revalidateAt = new Date(Date.now() - cacheAge * 1000 + 1800 * 1000).toISOString();
 

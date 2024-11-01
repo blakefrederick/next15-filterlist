@@ -27,15 +27,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={cn(GeistSans.className, 'flex flex-col px-4 py-6 sm:px-16 sm:py-16 xl:px-48 2xl:px-96')}>
         <div className="group flex flex-col gap-10">
           <div className="flex flex-col gap-6">
-            <h1>Project information</h1>
-            <ProjectInfo />
+            <h1>Weather</h1>
+            {/* <ProjectInfo /> */}
           </div>
-          <div className="flex flex-col gap-6">
+          {/* <div className="flex flex-col gap-6">
             <h2>Task list</h2>
             <Suspense fallback={<StatusTabsSkeleton />}>
               <StatusTabs taskSummaryPromise={taskSummary} />
             </Suspense>
-          </div>
+          </div> */}
           <div className="h-[1px] bg-primary" />
           <Suspense fallback={<SearchSkeleton />}>
             <Search />
