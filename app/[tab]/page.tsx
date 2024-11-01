@@ -40,22 +40,28 @@ export default async function TabPage({ params, searchParams }: PageProps) {
             <th scope="col">Title</th>
             <th scope="col">Description</th>
             <th scope="col">Category</th>
+            <th scope="col">Cache Status</th>
+            <th scope="col">Cached At</th>
+            <th scope="col">Revalidates At</th>
             <th scope="col">Created Date</th>
             <th scope="col" />
           </tr>
         </thead>
         <tbody>
           {data.map((task, index) => {
-            const color = getCategoryColor(task.categoryId || index); 
+            const color = getCategoryColor(task.category || index);
             return (
-              <tr key={task.id || index}> 
+              <tr key={index}>
                 <td className="font-medium">{task.title}</td>
                 <td>{task.description}</td>
                 <td>
                   <div className={cn(color, 'flex w-fit justify-center px-3 py-1 text-white dark:text-black')}>
-                    {task.category?.name || 'Uncategorized'} 
+                    {task.category || 'Uncategorized'}
                   </div>
                 </td>
+                <td>{task.cacheStatus}</td>
+                <td>{new Date(task.cacheDate).toLocaleString()}</td>
+                <td>{new Date(task.revalidateAt).toLocaleString()}</td>
                 <td>{new Date(task.createdAt).toLocaleDateString()}</td>
                 <td>
                   <button aria-label="Options">
@@ -67,7 +73,7 @@ export default async function TabPage({ params, searchParams }: PageProps) {
           })}
           {data.length === 0 && (
             <tr>
-              <td className="italic" colSpan={5}>
+              <td className="italic" colSpan={8}>
                 No tasks found
               </td>
             </tr>
